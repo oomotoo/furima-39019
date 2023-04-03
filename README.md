@@ -6,7 +6,7 @@
 |--------------------|---------------------|------------------------------|
 | nickname           | string              | null: false                  |
 | email              | string              | null: false,uniqueness: true |
-| user_password      | string              | null: false,uniqueness: true |
+| encrypted_password | string        　　　 | null: false 　　　　　　　　　　|
 | first_name         | string              | null: false                  |
 | last_name          | string              | null: false                  |
 | first_name_kana    | string              | null: false                  |
@@ -15,54 +15,8 @@
 ### Association
 
 * has_many :items
-* has_one  :credit_card
-* has_one  :destinations
-
-## credit_card table
-
-| Column                              | Type       | Options                        |
-|-------------------------------------|------------|--------------------------------|
-| user_id                             | integer	   | null: false, foreign_key: true |
-| customer_id                         | references | null: false, foreign_key: true |
-| card_id                             | references | null: false, foreign_key: true |
-
-
-### Association
-
-- belongs_to :user
-
-## categories table
-
-| Column      | Type       | Options                        |
-|-------------|------------|--------------------------------|
-| name        | string     | null: false                    |
-| ancestry    | string     |                                |
-
-
-### Association
-
-- has_many :items
-
-## images table
-
-| Column      | Type       | Options                             |
-|-------------|------------|-------------------------------------|
-| image       | string     | null: false                         |
-| product_id  | references |null: false, foreign_key:true        |
-
-### Association
-
-- belongs_to :items
-
-## brands table
-
-| Column      | Type       | Options                             |
-|-------------|------------|-------------------------------------|
-| name        | string     | null: false                         |
-
-### Association
-
-- has_many :items
+* has_many :orders
+* has_many :comments
 
 ## items table
 
@@ -87,48 +41,49 @@
 * belongs_to :category
 * belongs_to :user
 
-## items table
+## orders table
 
 | Column             | Type                | Options                         |
 |--------------------|---------------------|---------------------------------|
-| name               | string              | null: false                     |
-| price              | integer             | null: false                     |
-| syopping_area      | string              | null: false                     |
-| detail             | text                | null: false                     |
-| syopping_day       | integer             | null: false                     |
-| delivery_fee       | integer             | null: false                     |
-| condition          | string              | null: false                     |
-| user_id            | references          | null: false, foreign_key: true  |
-| buyer_id           | references          | null: false, foreign_key: true  |
-| category_id        | references          | null: false, foreign_key: true  |
-| brand_id           | references          | null: false, foreign_key: true  |
+| name               | references          | null: false, foreign_key: true  |
+| item               | references          | null: false, foreign_key: true  |
+
 
 ### Association
 
-* has_many   :images
-* belongs_to :brand
-* belongs_to :category
 * belongs_to :user
+* belongs_to :item
+* has_one :payment
 
-## destinations table
+## payments table
 
 | Column             | Type                | Options                         |
 |--------------------|---------------------|---------------------------------|
-| first_name         | string              | null: false                     |
-| last_name          | string              | null: false                     |
-| first_name_kana    | string              | null: false                     |
-| last_name_kana     | string              | null: false                     |
-| post_cord          | integer             | null: false                     |
+| orders             | references          | null: false                     |
+| postcode           | string              | null: false                     |
+| prefecture_id      | integer             | null: false                     |
 | city               | string              | null: false                     |
-| adress             | string              | null: false                     |
-| bulding_name       | string              |                                 |
-| room_number        | string              |                                 |
-| phone_number       | string              |                                 |
-| user_id            | references          |                                 |
+| block              | string              | null: false                     |
+| building           | string              | null: false                     |
+| phone_number       | string              | null: false                     |
 
 ### Association
 
-* has_many   :images
-* belongs_to :brand
-* belongs_to :category
+* belongs_to :order
+
+## orders table
+
+| Column             | Type                | Options                         |
+|--------------------|---------------------|---------------------------------|
+| name               | references          | null: false, foreign_key: true  |
+| item               | references          | null: false, foreign_key: true  |
+| text               | text                | null: false                     |
+
+
+### Association
+
 * belongs_to :user
+* belongs_to :item
+
+
+
