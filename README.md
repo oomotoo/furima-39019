@@ -1,89 +1,93 @@
-# DB 設計
+# テーブル設計
 
-## users table
-
-| Column             | Type                | Options                      |
-|--------------------|---------------------|------------------------------|
-| nickname           | string              | null: false                  |
-| email              | string              | null: false,uniqueness: true |
-| encrypted_password | string        　　　 | null: false 　　　　　　　　　　|
-| first_name         | string              | null: false                  |
-| last_name          | string              | null: false                  |
-| first_name_kana    | string              | null: false                  |
-| last_name_kana     | string              | null: false                  |
-| birth_day          | date                | null: false                  |
-### Association
-
-* has_many :items
-* has_many :orders
-* has_many :comments
-
-## items table
-
-| Column             | Type                | Options                         |
-|--------------------|---------------------|---------------------------------|
-| name               | string              | null: false                     |
-| price              | integer             | null: false                     |
-| syopping_area      | string              | null: false                     |
-| detail             | text                | null: false                     |
-| syopping_day       | integer             | null: false                     |
-| delivery_fee       | integer             | null: false                     |
-| condition          | string              | null: false                     |
-| user_id            | references          | null: false, foreign_key: true  |
-| buyer_id           | references          | null: false, foreign_key: true  |
-| category_id        | references          | null: false, foreign_key: true  |
-| brand_id           | references          | null: false, foreign_key: true  |
+## users テーブル
+| Column      | Type   | Options     |
+| ----------- | ------ | ----------- |
+| nickname    | string | null: false |
+| email       | string | null: false |
+| password    | string | null: false |
+| first_name  | string | null: false |
+| family_name | string | null: false |
+| read_first  | string | null: false |
+| read_family | string | null: false |
+| birth       | date   | null: false |
 
 ### Association
 
-* has_many   :images
-* belongs_to :brand
-* belongs_to :category
-* belongs_to :user
+- has_many :products
+- has_many :item_purchases
+- has_many :comments
 
-## orders table
-
-| Column             | Type                | Options                         |
-|--------------------|---------------------|---------------------------------|
-| name               | references          | null: false, foreign_key: true  |
-| item               | references          | null: false, foreign_key: true  |
+## products テーブル
+| Column              | Type       | Options     |
+| ------------------- | ---------- | ----------- |
+| photo               | text       | null: false |
+| name                | string     | null: false |
+| explanation         | text       | null: false |
+| category            | integer    | null: false |
+| condition           | integer    | null: false |
+| postage_type        | integer    | null: false |
+| prefectures         | integer    | null: false |
+| preparation_days    | integer    | null: false |
+| value               | integar    | null: false |
+| user                | references | null: false | 
 
 
 ### Association
 
-* belongs_to :user
-* belongs_to :item
-* has_one :payment
+- belongs_to :user
+- has_one :item_purchase
+- has_many :comments
+- belongs_to_active_hash :category
+- belongs_to_active_hash :condition
+- belongs_to_active_hash :postage_type
+- belongs_to_active_hash :prefectures
+- belongs_to_active_hash :preparation_days
+- belongs_to :seller, class_name: "User"
 
-## payments table
 
-| Column             | Type                | Options                         |
-|--------------------|---------------------|---------------------------------|
-| orders             | references          | null: false                     |
-| postcode           | string              | null: false                     |
-| prefecture_id      | integer             | null: false                     |
-| city               | string              | null: false                     |
-| block              | string              | null: false                     |
-| building           | string              | null: false                     |
-| phone_number       | string              | null: false                     |
-
-### Association
-
-* belongs_to :order
-
-## orders table
-
-| Column             | Type                | Options                         |
-|--------------------|---------------------|---------------------------------|
-| name               | references          | null: false, foreign_key: true  |
-| item               | references          | null: false, foreign_key: true  |
-| text               | text                | null: false                     |
-
+## item_purchases テーブル
+| Column        | Type    | Options                        |
+| ------------- | ------- | ------------------------------ |
+| product       | integer | null: false, foreign_key: true |
+| user          | integer | null: false, foreign_key: true |
+| purchase_info | integer | null: false, foreign_key: true |
 
 ### Association
 
-* belongs_to :user
-* belongs_to :item
+- belongs_to :user
+- belongs_to :product
+- belongs_to :purchase_info
+
+
+## comments テーブル
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| content | string     | null: false                    |
+| user    | integer    | null: false, foreign_key: true |
+| product | integer    | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :product
+- belongs_to :user
+
+## purchase_info テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefectures   | integer    | null: false, foreign_key: true |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     |                                |
+| phone_number  | string     | null: false                    |
+| item_purchase | integer    | null: false, foreign_key: true |
+
+### Association
+
+- has_one_active_hash :prefectures
+- has_one :item_purchase
 
 
 
