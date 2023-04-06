@@ -28,7 +28,7 @@
 | postage_type_id     | integer    | null: false                    |
 | prefecture_id       | integer    | null: false                    |
 | preparation_day_id  | integer    | null: false                    |
-| price               | integar    | null: false                    |
+| price               | integer    | null: false                    |
 | user                | references | null: false, foreign_key: true | 
 
 
@@ -74,7 +74,7 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
-| prefecture_id | integer    | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
