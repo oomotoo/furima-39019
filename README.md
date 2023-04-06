@@ -19,17 +19,17 @@
 - has_many :comments
 
 ## products テーブル
-| Column              | Type       | Options     |
-| ------------------- | ---------- | ----------- |
-| name                | string     | null: false |
-| explanation         | text       | null: false |
-| category_id         | integer    | null: false |
-| condition_id        | integer    | null: false |
-| postage_type_id     | integer    | null: false |
-| prefecture_id       | integer    | null: false |
-| preparation_day_id  | integer    | null: false |
-| value               | integar    | null: false |
-| user                | references | null: false | 
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| name                | string     | null: false                    |
+| explanation         | text       | null: false                    |
+| category_id         | integer    | null: false                    |
+| condition_id        | integer    | null: false                    |
+| postage_type_id     | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
+| preparation_day_id  | integer    | null: false                    |
+| price               | integar    | null: false                    |
+| user                | references | null: false, foreign_key: true | 
 
 
 ### Association
