@@ -7,10 +7,10 @@
 | email              | string | null: false  unique: true |
 | encrypted_password | string | null: false               |
 | first_name         | string | null: false               |
-| family_name        | string | null: false               |
-| read_first         | string | null: false               |
-| read_family        | string | null: false               |
-| birth              | date   | null: false               |
+| last_name          | string | null: false               |
+| read_first_name    | string | null: false               |
+| read_last_name     | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
