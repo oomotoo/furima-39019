@@ -60,3 +60,6 @@ group :production do
 gem 'pg'
 end
 end
+
+gem 'devise'
+
